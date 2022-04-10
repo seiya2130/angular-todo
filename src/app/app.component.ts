@@ -24,4 +24,3 @@ export class AppComponent {
 
   }
 }
-// Todoアプリとして必要そうな機能を追加する
