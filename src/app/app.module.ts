@@ -15,6 +15,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzListModule } from 'ng-zorro-antd/list'
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 registerLocaleData(en);
 
@@ -33,6 +38,11 @@ registerLocaleData(en);
     NzPageHeaderModule,
     NzListModule,
     NzCheckboxModule,
+    NzTagModule,
+    NzInputModule,
+    NzDatePickerModule,
+    NzButtonModule,
+    NzGridModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
