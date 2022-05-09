@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Task } from '../../models/task';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { fromDocument, Task, TaskDocument } from '../../models/task';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, OnDestroy {
 
   constructor(
     private firestore: AngularFirestore,
@@ -15,13 +16,16 @@ export class TaskListComponent implements OnInit {
 
   tasks: Task[] = [];
 
+  subscription: Subscription = new Subscription;
+
   ngOnInit(): void {
-    this.firestore.collection('tasks').valueChanges().subscribe((tasks: any) => {
-      this.tasks = tasks.map((task: any) => {
-        task.deadline = task.deadline ? task.deadline.toDate() : null;
-        return task;
-      }) as Task[];
+    this.subscription = this.firestore.collection('tasks').valueChanges().subscribe((tasks: any[]) => {
+      this.tasks = tasks.map(fromDocument);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   addTask(task: Task) {
